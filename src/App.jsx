@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect, Suspense, lazy } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { RootLayout } from "./components";
+import { ProgressSpinner } from "primereact/progressspinner";
+import { serverRun } from "./services/RunService";
+import { HomePage } from "./pages";
 
-function App() {
-  const [count, setCount] = useState(0)
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+
+const App = () => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // useEffect para hacer la consulta al servidor cuando la aplicación cargue
+  useEffect(() => {
+    const checkServerStatus = async () => {
+      try {
+        const response = await serverRun();
+        if (response === "pong") {
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error("Error al verificar el servidor:", err);
+        setError("El servidor no responde");
+        setLoading(false);
+      }
+    };
+    checkServerStatus();
+  }, []);
+
+  // Mientras cargamos, mostramos el spinner o el mensaje de error si falla
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <ProgressSpinner style={{width: '50px', height: '50px'}} strokeWidth="10" fill="var(--surface-ground)" animationDuration=".5s" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <h1>{error}</h1>;
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Suspense fallback={<ProgressSpinner style={{width: '50px', height: '50px'}} strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s" />
+  }>
+      <BrowserRouter>
+        <RootLayout>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/home" element={<HomePage />} />
+          </Routes>
+        </RootLayout>
+      </BrowserRouter>
+    </Suspense>
+  );
+};
 
-export default App
+export default App;
