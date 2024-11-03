@@ -1,11 +1,10 @@
-import { ProgressSpinner } from 'primereact/progressspinner';
+import PacmanLoader from "react-spinners/PacmanLoader";
 
-const Spinner = () => {
-  return (
-    <div className="flex justify-center items-center min-h-screen">
-      <ProgressSpinner style={{width: '50px', height: '50px'}} strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s" />
-    </div>
-  );
-};
+const Spinner = () => (
+  <div className="flex flex-col items-center justify-center min-h-screen">
+    <PacmanLoader color={"#36d7b7"} size={50} />
+    <p className="mt-4 text-lg">El backend se está iniciando, por favor espera</p>
+  </div>
+);
 
 export default Spinner;

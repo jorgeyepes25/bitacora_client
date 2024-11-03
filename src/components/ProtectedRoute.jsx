@@ -1,16 +1,16 @@
+// ProtectedRoute.jsx
 import { Navigate } from 'react-router-dom';
-import useStore from '../store/useStore';
+import useUserStore from "../store/state/useUserStore";
+import PropTypes from 'prop-types';
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useStore();
+  const isAuthenticated = useUserStore((state) => state.isAuthenticated());
 
-  // Si no hay usuario autenticado, redirige al login
-  if (!user || !user.token) {
-    return <Navigate to="/login" replace />;
-  }
+  return isAuthenticated ? children : <Navigate to="/" />;
+};
 
-  // Si el usuario está autenticado, renderiza el contenido protegido
-  return children;
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default ProtectedRoute;

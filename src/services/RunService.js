@@ -1,17 +1,12 @@
-import axios from "axios";
+// services/backendService.ts
+import axios from 'axios';
 
-// Función para consultar el estado del servidor
-export const serverRun = async () => {
+export const checkBackendStatus = async () => {
   try {
-    const response = await axios.get("/ping");
-
-    if (response.data.message === "pong") {
-      return "pong";
-    } else {
-      throw new Error("Respuesta inesperada del servidor");
-    }
+    const response = await axios.get('/ping');
+    return response.data.message === 'pong';
   } catch (error) {
-    console.error("Error al contactar el servidor:", error);
-    throw error.response ? error.response.data : new Error("El servidor no responde");
+    console.error("Error checking backend status:", error);
+    return false;
   }
 };
