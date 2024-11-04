@@ -1,10 +1,9 @@
-// AuthContext.jsx
-import { createContext, useEffect, useState } from 'react';
+// contexts/AuthProvider.jsx
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import useUserStore from "../store/state/useUserStore";
-
-export const AuthContext = createContext();
+import { AuthContext } from './AuthContext';
 
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);

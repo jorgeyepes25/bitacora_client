@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { RootLayout } from "./components";
 import Spinner from "./components/Spinner";
 import { useCheckBackend } from "./hooks/useCheckBackend";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { HomePage } from "./pages";
 
