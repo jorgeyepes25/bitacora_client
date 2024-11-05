@@ -32,8 +32,6 @@ export const register = async (username, password = []) => {
   }
 };
 
-// Función para redirigir al inicio de sesión o creación de cuenta en redes sociales
-
 // Login o creación de cuenta con Google
 export const loginOrSignupWithGoogle = () => {
   window.open(`${URL_BACK}api/auth/social/google`, "_blank", "width=500,height=600");

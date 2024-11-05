@@ -1,4 +1,5 @@
-// pages/LoginPage.jsx
+// LoginPage.jsx
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
@@ -6,7 +7,7 @@ import { Divider } from "primereact/divider";
 import { toast } from "sonner";
 import useUserStore from "../store/state/useUserStore";
 import LoginForm from "../components/Login/LoginForm";
-import { login } from "../services/authService";
+import { login, loginOrSignupWithGoogle, loginOrSignupWithFacebook, loginOrSignupWithGitHub } from "../services/authService";
 import "./styles/Login.css";
 
 const LoginPage = () => {
@@ -20,13 +21,48 @@ const LoginPage = () => {
       toast.success("Inicio de sesión exitoso");
       navigate("/home");
     } catch (error) {
-      toast.error( error.message || "Credenciales incorrectas. Inténtalo de nuevo.");
+      toast.error(error.message || "Credenciales incorrectas. Inténtalo de nuevo.");
     }
   };
 
   const handleSocialLogin = (provider) => {
-    toast(`Redirigiendo a ${provider}...`);
+    switch (provider.toLowerCase()) {
+      case "google":
+        toast("Redirigiendo a Google...");
+        loginOrSignupWithGoogle();
+        break;
+      case "facebook":
+        toast("Redirigiendo a Facebook...");
+        loginOrSignupWithFacebook();
+        break;
+      case "github":
+        toast("Redirigiendo a GitHub...");
+        loginOrSignupWithGitHub();
+        break;
+      default:
+        toast.error("Proveedor de autenticación no soportado");
+    }
   };
+
+  useEffect(() => {
+    // Listener para capturar el mensaje de autenticación desde la ventana emergente
+    const handleAuthMessage = (event) => {
+      if (event.data.message === "login_success") {
+        const { token, userId } = event.data;
+
+        // Almacena los datos de autenticación y redirige al usuario a /home
+        loginUser(userId, token);
+        toast.success("Inicio de sesión exitoso");
+        navigate("/home");
+      }
+    };
+
+    window.addEventListener("message", handleAuthMessage);
+
+    return () => {
+      window.removeEventListener("message", handleAuthMessage);
+    };
+  }, [navigate, loginUser]);
 
   return (
     <div className="login-page">
