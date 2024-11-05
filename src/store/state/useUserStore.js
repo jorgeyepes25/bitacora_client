@@ -1,4 +1,3 @@
-// store/useUserStore.js
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -16,14 +15,12 @@ const useUserStore = create(
       logout: () => set({ userId: null, token: null, isAuthenticated: false }),
       
       verifyToken: () => {
-        const { token, logout } = get();
+        const { token } = get();
         if (token) {
           set({ isAuthenticated: true });
           return true;
-        } else { 
-          logout();
-          return false;
         }
+        return false;
       },
     }),
     {

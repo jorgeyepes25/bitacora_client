@@ -1,0 +1,13 @@
+/* styles/AvatarMenu.css */
+
+.avatar-menu {
+  position: relative;
+}
+
+.avatar {
+  cursor: pointer;
+}
+
+.p-menu {
+  margin-top: 0.5rem;
+}

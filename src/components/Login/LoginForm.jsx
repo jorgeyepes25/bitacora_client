@@ -25,7 +25,6 @@ const LoginPage = () => {
   const onSubmit = async (values) => {
     try {
       const data = await login(values.username, values.password);
-      console.log("Login success:", data);
       loginUser(data.userId, data.token);
       toast.success("Inicio de sesión exitoso");
       navigate("/home");
