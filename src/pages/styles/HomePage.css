@@ -62,3 +62,28 @@
 .avatar {
   margin-left: 10px;
 }
+
+.content {
+  position: relative;
+  padding: 1rem;
+}
+
+.bitacoras-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.add-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.add-button:hover {
+  background-color: #0056b3;
+}
