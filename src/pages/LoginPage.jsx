@@ -37,22 +37,22 @@ const LoginPage = () => {
 
         <div className="social-login-buttons">
           <Button
-            label="Iniciar con Facebook"
             icon="pi pi-facebook"
-            className="p-button-text p-button-rounded p-button-facebook"
-            onClick={() => handleSocialLogin("Facebook")}
+            className="p-button-rounded p-button-facebook social-button"
+            aria-label="Iniciar con Facebook"
+            onClick={() => handleSocialLogin("facebook")}
           />
           <Button
-            label="Iniciar con Google"
             icon="pi pi-google"
-            className="p-button-text p-button-rounded p-button-google"
-            onClick={() => handleSocialLogin("Google")}
+            className="p-button-rounded p-button-google social-button"
+            aria-label="Iniciar con Google"
+            onClick={() => handleSocialLogin("google")}
           />
           <Button
-            label="Iniciar con GitHub"
             icon="pi pi-github"
-            className="p-button-text p-button-rounded p-button-github"
-            onClick={() => handleSocialLogin("GitHub")}
+            className="p-button-rounded p-button-github social-button"
+            aria-label="Iniciar con GitHub"
+            onClick={() => handleSocialLogin("github")}
           />
         </div>
 
