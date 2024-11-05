@@ -7,7 +7,8 @@ import { obtenerBitacoras } from "../../services/bitacoraService";
 import useUserStore from "../../store/state/useUserStore";
 import "./styles/DataView.css";
 
-const DEFAULT_IMAGE = "https://fotografias-neox.atresmedia.com/clipping/cmsimages01/2022/03/04/6F3E2E33-8AAF-4607-8B3E-80261F00FB86/naruto_69.jpg?crop=1920,1080,x0,y0&width=1280&height=720&optimize=low&format=jpg";
+const DEFAULT_IMAGE =
+  "https://fotografias-neox.atresmedia.com/clipping/cmsimages01/2022/03/04/6F3E2E33-8AAF-4607-8B3E-80261F00FB86/naruto_69.jpg?crop=1920,1080,x0,y0&width=1280&height=720&optimize=low&format=jpg";
 
 export default function Bitacoras() {
   const { token } = useUserStore();
@@ -107,17 +108,15 @@ export default function Bitacoras() {
   );
 
   return (
-    <div className="card">
-      <div className="grid-container">
-        <DataView
-          value={bitacoras}
-          itemTemplate={(bitacora) => itemTemplate(bitacora, layout)}
-          layout={layout}
-          header={header}
-          paginator
-          rows={9}
-        />
-      </div>
+    <div className="full-width-container">
+      <DataView
+        value={bitacoras}
+        itemTemplate={(bitacora) => itemTemplate(bitacora, layout)}
+        layout={layout}
+        header={header}
+        paginator
+        rows={9}
+      />
     </div>
   );
 }
