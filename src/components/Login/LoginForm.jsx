@@ -37,7 +37,7 @@ const LoginPage = () => {
   return (
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="field">
-          <label htmlFor="username">Nombre de Usuario</label>
+          <label htmlFor="username">Usuarios</label>
           <Controller
             name="username"
             control={control}
