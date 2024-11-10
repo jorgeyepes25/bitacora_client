@@ -1,56 +1,57 @@
 /* Contenedor para ocupar todo el ancho */
+
+/* hola  */
 .full-width-container {
-    width: 100%;
-  }
-  
-  /* Contenedor en modo grid que muestra tres columnas */
+  width: 100%;
+}
+
+/* Contenedor en modo grid que muestra tres columnas */
+.full-width-container .p-dataview-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+  gap: 1rem; /* Espacio entre tarjetas */
+}
+
+/* Estilo para tarjetas en grid */
+.grid-card {
+  width: 100%;
+}
+
+/* Media query para pantallas medianas */
+@media (max-width: 991px) {
   .full-width-container .p-dataview-content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-    gap: 1rem; /* Espacio entre tarjetas */
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
   }
-  
-  /* Estilo para tarjetas en grid */
-  .grid-card {
-    width: 100%;
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 600px) {
+  .full-width-container .p-dataview-content {
+    grid-template-columns: 1fr; /* Una columna */
   }
-  
-  /* Media query para pantallas medianas */
-  @media (max-width: 991px) {
-    .full-width-container .p-dataview-content {
-      grid-template-columns: repeat(2, 1fr); /* Dos columnas */
-    }
-  }
-  
-  /* Media query para pantallas pequeñas */
-  @media (max-width: 600px) {
-    .full-width-container .p-dataview-content {
-      grid-template-columns: 1fr; /* Una columna */
-    }
-  }
-  
-  /* Otros estilos para la tarjeta */
-  .bitacora-card {
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-  }
-  
-  .bitacora-card h5 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #333;
-    margin: 0;
-  }
-  
-  .bitacora-card .description {
-    font-size: 0.875rem;
-    color: #555;
-    text-align: center;
-  }
-  
-  .bitacora-card .location {
-    font-size: 0.875rem;
-    color: #777;
-  }
-  
+}
+
+/* Otros estilos para la tarjeta */
+.bitacora-card {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.bitacora-card h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.bitacora-card .description {
+  font-size: 0.875rem;
+  color: #555;
+  text-align: center;
+}
+
+.bitacora-card .location {
+  font-size: 0.875rem;
+  color: #777;
+}
