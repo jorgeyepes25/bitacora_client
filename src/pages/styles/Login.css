@@ -5,16 +5,42 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-image: url('../IMG/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1; 
   padding: 1rem;
 }
 
 .login-card {
   width: 100%;
-  max-width: 400px;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  height: 550px;
+  padding: 3rem;
+  border-radius: 10px;
+  
+  
+}
+.login-card2 {
+  width: 100%;
+  max-width: 450px;
+  height: 550px;
+    background-color: #c5e3c9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-image: url('../IMG/Botanicakeli.png');
+    background-position: center;
+    
+}
+.login-card2, .login-card {
+  transition: transform 0.3s ease;
+}
+
+.login-card2:hover, .login-card:hover {
+  transform: translateY(-5px);
 }
 
 .field {
@@ -26,7 +52,8 @@
 .field label {
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: #050505;
+  font-family: 'Arial', sans-serif;
 }
 
 .input-text,
@@ -38,6 +65,7 @@
   padding: 0.5rem;
   font-size: 1rem;
   margin-bottom: 0.5rem;
+
 }
 
 .input-text:focus,
@@ -58,12 +86,12 @@
   border-radius: 8px;
   font-size: 1rem;
   font-weight: bold;
-  background-color: #5b76f9;
+  background-color: #75be83c6;
   color: white;
 }
 
 .p-button-lg:hover {
-  background-color: #4767d9;
+  background-color: #16d75a;
 }
 
 .social-login-buttons {
@@ -107,7 +135,7 @@
 }
 
 .create-account-link a {
-  color: #5b76f9;
+  color: #3cdf14;
   font-weight: bold;
   text-decoration: none;
 }
@@ -115,3 +143,4 @@
 .create-account-link a:hover {
   text-decoration: underline;
 }
+

@@ -64,7 +64,7 @@ const LoginPage = () => {
     };
   }, [navigate, loginUser]);
 
-  return (
+  return ( 
     <div className="login-page">
       <Card title="Iniciar Sesión" className="login-card">
         <LoginForm onSubmit={onSubmit} />
@@ -98,6 +98,13 @@ const LoginPage = () => {
           ¿No tienes una cuenta? <Link to="/register">Crear cuenta</Link>
         </p>
       </Card>
+      
+      <div className="login-card2">
+  
+</div>
+    
+  
+     
     </div>
   );
 };
