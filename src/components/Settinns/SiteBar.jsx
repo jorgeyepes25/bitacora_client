@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Sidebar } from 'primereact/sidebar';
-import { Avatar } from 'primereact/avatar';
 import { useLocation } from 'react-router-dom';
+import SidebarMenu from './SidebarMenu';
+import useUserStore from "../../store/state/useUserStore";
+import { getUserById } from "../../services/userService";
 import './styles/Sidebar.css';
 
 export default function SiteBar() {
     const [visible, setVisible] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
+    const [user, setUser] = useState(null); // Estado para almacenar los datos del usuario
     const location = useLocation();
+    const { userId, token } = useUserStore();
 
+    // Manejo de visibilidad y tamaño de pantalla
     useEffect(() => {
-        // Mostrar el sidebar solo cuando la ruta comience con '/settings'
         setVisible(location.pathname.startsWith('/settings'));
 
         const handleResize = () => setIsMobile(window.innerWidth < 992);
@@ -20,6 +24,21 @@ export default function SiteBar() {
             window.removeEventListener("resize", handleResize);
         };
     }, [location.pathname]);
+
+    // Llamada para obtener los datos del usuario
+    useEffect(() => {
+        const fetchUser = async () => {
+            if (userId && token) {
+                try {
+                    const userData = await getUserById(userId, token);
+                    setUser(userData);
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
+                }
+            }
+        };
+        fetchUser();
+    }, [userId, token]);
 
     return (
         <Sidebar
@@ -36,21 +55,11 @@ export default function SiteBar() {
                     <div className="flex flex-column h-full">
                         <div className="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
                             <span className="inline-flex align-items-center gap-2">
-                                <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    {/* Contenido SVG */}
-                                </svg>
-                                <span className="font-semibold text-2xl text-primary">Your Logo</span>
+                                Rol: {user ? user.username : "Cargando..."}
                             </span>
                         </div>
                         <div className="overflow-y-auto">
-                            {/* Contenido del Sidebar */}
-                        </div>
-                        <div className="mt-auto">
-                            <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
-                            <a className="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
-                                <span className="font-bold">Amy Elsner</span>
-                            </a>
+                            <SidebarMenu />
                         </div>
                     </div>
                 </div>
