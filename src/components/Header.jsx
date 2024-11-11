@@ -23,7 +23,7 @@ const Header = () => {
         <img src="/icon.png" alt="App icon" className="icon" />
       </div>
       <div className="header-center">
-        <h1 className="header-title">Bitacoras</h1>
+        <h1 className="header-title">Bitácoras de Nuestro Caqueta</h1>
       </div>
       <div className="header-right">
         <AvatarMenu />

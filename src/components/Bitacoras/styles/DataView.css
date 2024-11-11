@@ -1,16 +1,14 @@
-/* Contenedor para ocupar todo el ancho */
-
-/* hola  */
 .full-width-container {
   width: 100%;
 }
 
-/* Contenedor en modo grid que muestra tres columnas */
+/* Contenedor en modo grid que muestra filas */
 .full-width-container .p-dataview-content {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+  grid-template-rows: repeat(auto-fill, minmax(150px, 1fr)); /* Configuración de filas */
   gap: 1rem; /* Espacio entre tarjetas */
 }
+
 
 /* Estilo para tarjetas en grid */
 .grid-card {
@@ -20,20 +18,20 @@
 /* Media query para pantallas medianas */
 @media (max-width: 991px) {
   .full-width-container .p-dataview-content {
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    grid-template-rows: repeat(auto-fill, minmax(150px, 1fr)); /* Configuración de filas para pantallas medianas */
   }
 }
 
 /* Media query para pantallas pequeñas */
 @media (max-width: 600px) {
   .full-width-container .p-dataview-content {
-    grid-template-columns: 1fr; /* Una columna */
+    grid-template-rows: 1fr; /* Configuración de una sola fila */
   }
 }
 
 /* Otros estilos para la tarjeta */
 .bitacora-card {
-  background-color: #fff;
+  background-color: #100b0b;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
