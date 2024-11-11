@@ -4,63 +4,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.header {
-  background-color: transparent;
-  color: #ffffff; /* Color del texto cuando el header es transparente */
-}
-
-.header.scrolled {
-  background-color: rgba(0, 122, 217, 0.9); /* Color de fondo al hacer scroll */
-  color: #ffffff; /* Color del texto cuando se hace scroll */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.icon {
-  height: 40px; /* Ajusta la altura del icono para que no sea tan grande */
-  width: auto;
-  margin-right: 10px;
-}
-
-.header-center {
-  text-align: center;
-  flex-grow: 1;
-}
-
-.header-title {
-  margin: 0;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: 0.1em;
-  color: #000000;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-}
-
-.avatar {
-  margin-left: 10px;
+  padding-top: 60px; /* Ajusta este valor para que sea igual o mayor a la altura del Header */
 }
 
 .content {
