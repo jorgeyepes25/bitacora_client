@@ -6,7 +6,7 @@ import Spinner from "./components/Spinner";
 import { useCheckBackend } from "./hooks/useCheckBackend";
 import { AuthProvider } from "./contexts/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { HomePage, BitacoraDetailPage, SettinsPage } from "./pages";
+import { HomePage, BitacoraDetailPage, SettinsPage, UserPage, RolesPage } from "./pages";
 
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
@@ -37,7 +37,9 @@ const App = () => {
               <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
               <Route path="/bitacora/:id" element={<BitacoraDetailPage />} />
               <Route path="/settings" element={<SettinsPage />} />
-            </Routes>
+              <Route path="/settings/users" element={<UserPage />} />
+              <Route path="/settings/roles" element={<RolesPage />} />
+              </Routes>
           </Suspense>
         </RootLayout>
       </AuthProvider>

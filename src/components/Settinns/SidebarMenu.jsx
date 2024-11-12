@@ -6,7 +6,6 @@ export default function SidebarMenu() {
     const menuItems = [
         { label: 'Users', path: '/settings/users' },
         { label: 'Roles', path: '/settings/roles' },
-        { label: 'Bitacoras', path: '/settings/bitacoras' },
     ];
 
     return (
