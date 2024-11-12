@@ -9,11 +9,10 @@ import './styles/Sidebar.css';
 export default function SiteBar() {
     const [visible, setVisible] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
-    const [user, setUser] = useState(null); // Estado para almacenar los datos del usuario
+    const [user, setUser] = useState(null);
     const location = useLocation();
     const { userId, token } = useUserStore();
 
-    // Manejo de visibilidad y tamaño de pantalla
     useEffect(() => {
         setVisible(location.pathname.startsWith('/settings'));
 
@@ -25,7 +24,6 @@ export default function SiteBar() {
         };
     }, [location.pathname]);
 
-    // Llamada para obtener los datos del usuario
     useEffect(() => {
         const fetchUser = async () => {
             if (userId && token) {

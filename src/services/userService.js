@@ -19,3 +19,35 @@ export const getUserById = async (userId, token) => {
     }
   }
 };
+
+export const getUsers = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.get("/api/user", config);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error al obtener los usuarios"
+    );
+  }
+};
+
+export const getRoles = async (token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.get("/api/role", config);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error al obtener los roles"
+    );
+  }
+};
