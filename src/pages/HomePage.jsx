@@ -1,7 +1,6 @@
 // pages/HomePage.jsx
 import { useState } from "react";
 import { Button } from 'primereact/button';
-
 import Header from "../components/Header";
 import Bitacoras from "../components/Bitacoras/DataView";
 import BitacoraModal from "../components/Bitacoras/BitacoraModal";

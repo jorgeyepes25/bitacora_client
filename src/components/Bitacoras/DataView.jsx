@@ -3,18 +3,22 @@ import { DataView, DataViewLayoutOptions } from "primereact/dataview";
 import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
 import { Card } from "primereact/card";
+import { InputText } from "primereact/inputtext";
+import { Calendar } from "primereact/calendar";
 import { obtenerBitacoras } from "../../services/bitacoraService";
 import useUserStore from "../../store/state/useUserStore";
 import { useNavigate } from "react-router-dom";
 import "./styles/DataView.css";
 
-const DEFAULT_IMAGE =
-  "https://images.pexels.com/photos/103573/pexels-photo-103573.jpeg?cs=srgb&dl=pexels-suneo1999-24143-103573.jpg&fm=jpg";
+const DEFAULT_IMAGE = "https://images.pexels.com/photos/103573/pexels-photo-103573.jpeg?cs=srgb&dl=pexels-suneo1999-24143-103573.jpg&fm=jpg";
 
 export default function Bitacoras() {
   const { token } = useUserStore();
   const [bitacoras, setBitacoras] = useState([]);
+  const [filteredBitacoras, setFilteredBitacoras] = useState([]);
   const [layout, setLayout] = useState("grid");
+  const [usernameFilter, setUsernameFilter] = useState("");
+  const [dateFilter, setDateFilter] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +26,7 @@ export default function Bitacoras() {
       try {
         const data = await obtenerBitacoras(token);
         setBitacoras(data);
+        setFilteredBitacoras(data); // Inicializamos el filtrado
       } catch (error) {
         console.error("Error al obtener las bitácoras:", error.message);
       }
@@ -29,6 +34,26 @@ export default function Bitacoras() {
 
     fetchBitacoras();
   }, [token]);
+
+  const applyFilters = () => {
+    let filtered = bitacoras;
+
+    if (usernameFilter) {
+      filtered = filtered.filter((bitacora) =>
+        bitacora.creadoPor?.username.toLowerCase().includes(usernameFilter.toLowerCase())
+      );
+    }
+
+    if (dateFilter) {
+      filtered = filtered.filter((bitacora) => {
+        const bitacoraDate = new Date(bitacora.fechaMuestreo).setHours(0, 0, 0, 0);
+        const selectedDate = new Date(dateFilter).setHours(0, 0, 0, 0);
+        return bitacoraDate === selectedDate;
+      });
+    }
+
+    setFilteredBitacoras(filtered);
+  };
 
   const getSeverity = (condition) => {
     switch (condition) {
@@ -117,8 +142,28 @@ export default function Bitacoras() {
   };
 
   const header = (
-    <div className="flex justify-content-between align-items-center mb-3">
+    <div className="flex flex-column align-items-start mb-3">
       <h4>Bitácoras</h4>
+      <div className="flex align-items-center mb-2">
+        <span className="p-float-label mr-2">
+          <InputText
+            id="usernameFilter"
+            value={usernameFilter}
+            onChange={(e) => setUsernameFilter(e.target.value)}
+            placeholder="Filtrar por usuario"
+          />
+        </span>
+        <span className="p-float-label mr-2">
+          <Calendar
+            id="dateFilter"
+            value={dateFilter}
+            onChange={(e) => setDateFilter(e.value)}
+            dateFormat="yy-mm-dd"
+            placeholder="Filtrar por fecha"
+          />
+        </span>
+        <Button label="Aplicar filtros" icon="pi pi-filter" onClick={applyFilters} />
+      </div>
       <DataViewLayoutOptions layout={layout} onChange={(e) => setLayout(e.value)} />
     </div>
   );
@@ -126,7 +171,7 @@ export default function Bitacoras() {
   return (
     <div className="full-width-container">
       <DataView
-        value={bitacoras}
+        value={filteredBitacoras}
         itemTemplate={(bitacora) => itemTemplate(bitacora, layout)}
         layout={layout}
         header={header}
