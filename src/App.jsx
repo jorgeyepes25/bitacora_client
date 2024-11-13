@@ -1,4 +1,3 @@
-// App.jsx
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { RootLayout } from "./components";
@@ -6,7 +5,8 @@ import Spinner from "./components/Spinner";
 import { useCheckBackend } from "./hooks/useCheckBackend";
 import { AuthProvider } from "./contexts/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { HomePage } from "./pages";
+import { HomePage, BitacoraDetailPage, UserPage, RolesPage } from "./pages";
+import SettingsLayout from "./layouts/SettingsLayout";
 
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
@@ -35,6 +35,12 @@ const App = () => {
               <Route path="/" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+              <Route path="/bitacora/:id" element={<BitacoraDetailPage />} />
+              <Route path="/settings" element={<SettingsLayout />}>
+                <Route index element={<UserPage />} />
+                <Route path="users" element={<UserPage />} />
+                <Route path="roles" element={<RolesPage />} />
+              </Route>
             </Routes>
           </Suspense>
         </RootLayout>

@@ -1,0 +1,47 @@
+/* Sidebar siempre visible en pantallas grandes */
+.permanent-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1;
+    width: 280px; /* Ancho del Sidebar */
+}
+
+/* Ajuste del Header para pantallas grandes cuando el Sidebar está presente */
+.header-settings {
+    margin-left: 280px; /* Espacio para el Sidebar en pantallas grandes */
+    width: calc(100% - 280px);
+}
+
+/* Mueve el contenido principal para que no esté debajo del Sidebar en pantallas grandes */
+.main-content {
+    margin-left: 280px; /* Ajusta el margen para que coincida con el ancho del Sidebar */
+}
+
+/* Ocultar el botón del Sidebar en pantallas grandes */
+.d-block.d-lg-none {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    /* El Sidebar será modal en pantallas móviles */
+    .permanent-sidebar {
+        display: none; /* Oculta el Sidebar fijo en móviles */
+    }
+    
+    .header-settings {
+        margin-left: 0; /* El Header ocupa todo el ancho en móviles */
+        width: 100%;
+    }
+
+    /* Muestra el botón del Sidebar en móviles */
+    .d-block.d-lg-none {
+        display: block;
+    }
+
+    /* El contenido principal debe ocupar todo el ancho en móviles */
+    .main-content {
+        margin-left: 0;
+    }
+}

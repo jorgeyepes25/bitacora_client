@@ -1,0 +1,12 @@
+.content-layout {
+    display: flex;
+    flex: 1;
+    margin-top: 60px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    overflow-y: auto;
+}

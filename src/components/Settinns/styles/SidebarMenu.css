@@ -1,0 +1,17 @@
+/* componentes/Settinns/styles/SidebarMenu.css */
+.sidebar-menu {
+    padding: 1rem;
+}
+
+.sidebar-menu-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+}
+
+.sidebar-menu-item:hover {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}

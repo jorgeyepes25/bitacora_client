@@ -83,12 +83,26 @@ export const obtenerBitacoras = async (token) => {
       },
     };
     const response = await axios.get("/api/bitacora", config);
-    console.log("Respuesta de la API:", response.data);
-    
     return response.data;
   } catch (error) {
     throw new Error(
       error.response?.data?.message || "Error al obtener las bitácoras"
+    );
+  }
+};
+
+export const bitacoraByID = async (id, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.get(`/api/bitacora/${id}`, config);   
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error al obtener la bitácora"
     );
   }
 };

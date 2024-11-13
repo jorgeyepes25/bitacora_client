@@ -5,6 +5,7 @@ import { Tag } from "primereact/tag";
 import { Card } from "primereact/card";
 import { obtenerBitacoras } from "../../services/bitacoraService";
 import useUserStore from "../../store/state/useUserStore";
+import { useNavigate } from "react-router-dom";
 import "./styles/DataView.css";
 
 const DEFAULT_IMAGE =
@@ -14,6 +15,7 @@ export default function Bitacoras() {
   const { token } = useUserStore();
   const [bitacoras, setBitacoras] = useState([]);
   const [layout, setLayout] = useState("grid");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBitacoras = async () => {
@@ -41,6 +43,10 @@ export default function Bitacoras() {
     }
   };
 
+  const handleDetailsClick = (id) => {
+    navigate(`/bitacora/${id}`);
+  };
+
   const gridItem = (bitacora) => (
     <div className="grid-card" key={bitacora._id}>
       <Card
@@ -60,7 +66,12 @@ export default function Bitacoras() {
             <span>
               Lat: {bitacora.localizacion.latitud.toFixed(2)}, Lng: {bitacora.localizacion.longitud.toFixed(2)}
             </span>
-            <Button icon="pi pi-info-circle" label="Detalles" className="p-button-rounded p-button-info" />
+            <Button
+              icon="pi pi-info-circle"
+              label="Detalles"
+              className="p-button-rounded p-button-info"
+              onClick={() => handleDetailsClick(bitacora._id)}
+            />
           </div>
         }
       >
@@ -88,7 +99,12 @@ export default function Bitacoras() {
             <p className="text-secondary">{new Date(bitacora.fechaMuestreo).toLocaleDateString()}</p>
             <Tag value={bitacora.condicionesClimaticas} severity={getSeverity(bitacora.condicionesClimaticas)} />
             <p>{bitacora.descripcionHabitat || "Sin descripción"}</p>
-            <Button icon="pi pi-info-circle" label="Detalles" className="p-button-text" />
+            <Button
+              icon="pi pi-info-circle"
+              label="Detalles"
+              className="p-button-text"
+              onClick={() => handleDetailsClick(bitacora._id)}
+            />
           </div>
         </div>
       </div>
