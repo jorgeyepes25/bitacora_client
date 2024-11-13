@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import "./styles/DataView.css";
 
 const DEFAULT_IMAGE =
-  "https://fotografias-neox.atresmedia.com/clipping/cmsimages01/2022/03/04/6F3E2E33-8AAF-4607-8B3E-80261F00FB86/naruto_69.jpg?crop=1920,1080,x0,y0&width=1280&height=720&optimize=low&format=jpg";
+  "https://images.pexels.com/photos/103573/pexels-photo-103573.jpeg?cs=srgb&dl=pexels-suneo1999-24143-103573.jpg&fm=jpg";
 
 export default function Bitacoras() {
   const { token } = useUserStore();

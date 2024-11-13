@@ -86,6 +86,7 @@ const RegisterPage = () => {
           ¿Ya tienes una cuenta? <Link to="/">Iniciar sesión</Link>
         </p>
       </Card>
+      <div className="login-card2"></div>
     </div>
   );
 };
