@@ -36,6 +36,22 @@ export const getUsers = async (token) => {
   }
 };
 
+export const createRole = async (roleData, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.post("/api/role", roleData, config);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error al crear el rol"
+    );
+  }
+};
+
 export const getRoles = async (token) => {
   try {
     const config = {
@@ -48,6 +64,54 @@ export const getRoles = async (token) => {
   } catch (error) {
     throw new Error(
       error.response?.data?.message || "Error al obtener los roles"
+    );
+  }
+};
+
+export const getRoleById = async (roleId, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.get(`/api/role/${roleId}`, config);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error al obtener el rol"
+    );
+  }
+};
+
+export const updateRole = async (roleId, roleData, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.put(`/api/role/${roleId}`, roleData, config);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error al actualizar el rol"
+    );
+  }
+};
+
+export const deleteRole = async (roleId, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.delete(`/api/role/${roleId}`, config);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error al eliminar el rol"
     );
   }
 };
