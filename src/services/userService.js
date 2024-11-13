@@ -36,6 +36,43 @@ export const getUsers = async (token) => {
   }
 };
 
+export const updateUserRoles = async (userId, userData, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.put(`/api/user/${userId}`, userData, config);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error al actualizar el usuario"
+    );
+  }
+};
+
+export const addRolesToUser = async (userId, roleNames, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.post(
+      `/api/user/${userId}/roles`,
+      { roleNames },
+      config
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error al agregar roles al usuario"
+    );
+  }
+};
+
+
 export const createRole = async (roleData, token) => {
   try {
     const config = {

@@ -28,10 +28,10 @@ const AvatarMenu = () => {
   }, [userId, token]);
 
   // Verificar si el usuario tiene el rol de 'admin'
-  const isAdmin = user?.roles?.[0]?.name !== "admin";
+  const isAdmin = user?.roles?.some((role) => role.name === "admin");
 
   const menuItems = [
-    { label: user?.username ? user.username : "Perfil", icon: "pi pi-user" },
+    { label: user?.username || "Perfil", icon: "pi pi-user" },
     ...(isAdmin ? [{ label: "Configuración", icon: "pi pi-cog", command: () => navigate("/settings") }] : []),
     { label: "Cerrar sesión", icon: "pi pi-sign-out", command: () => navigate("/logout") },
   ];
@@ -41,8 +41,8 @@ const AvatarMenu = () => {
   return (
     <div className="avatar-menu">
       <Avatar
-        label={user.username ? user.username.charAt(0).toUpperCase() : null}
-        icon={!user.username ? "pi pi-user" : null}
+        label={user?.username?.charAt(0).toUpperCase()}
+        icon={!user?.username ? "pi pi-user" : null}
         size="large"
         shape="circle"
         className="avatar"
