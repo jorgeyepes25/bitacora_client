@@ -1,13 +1,13 @@
 import UsersDataTable from '../components/Settinns/UsersDataTable';
+import "./styles/StyleUserPage.css";
 
 const UsersPage = () => {
 
     return (
-        <>
-            <h1>Users Page</h1>
-
-            <UsersDataTable />
-        </>
+    <div className="users-page">
+        <h1>Pagina de usuarios</h1>
+        <UsersDataTable />
+    </div>
     );
 };
 

@@ -38,7 +38,7 @@ const Header = () => {
           <img src="/icon.png" alt="App icon" className="icon" />
         </div>
         <div className="header-center" onClick={handleLogoClick}>
-          <h1 className="header-title">Bitácoras de Nuestro Caqueta</h1>
+          <h1 className="header-title">Bitácoras de Nuestro Caquetá</h1>
         </div>
         <div className="header-right">
           <AvatarMenu />

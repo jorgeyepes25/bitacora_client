@@ -19,6 +19,22 @@ body {
   margin: 0;
 }
 
+:root {
+  --primary-color: #4CAF50 !important;
+  --primary-color-text: #ffffff !important;
+}
+
+.p-button {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color-text) !important;
+}
+
+.p-button:hover {
+  background-color: #45a049 !important;
+  border-color: #45a049 !important;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

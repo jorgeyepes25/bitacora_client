@@ -4,100 +4,130 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 60px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #fff;
+    background-color: rgb(202, 244, 230);
     padding: 0 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     transition: margin-left 0.3s ease, width 0.3s ease;
-}
-
-/* Header transparente */
-.header.transparent {
+    }
+    
+    /* Header transparente */
+    .header.transparent {
     background-color: transparent;
     color: #ffffff;
-}
-
-/* Header en /settings para pantallas grandes */
-.header-settings {
+    }
+    
+    /* Header en /settings para pantallas grandes */
+    .header-settings {
     margin-left: 280px;
     width: calc(100% - 280px);
-}
-
-/* Efecto de scroll en el Header */
-.header.scrolled {
-    background-color: rgba(0, 122, 217, 0.9);
-    color: #ffffff;
+    }
+    
+    /* Efecto de scroll en el Header */
+    .header.scrolled {
+    
+    background-image: linear-gradient(rgba(255, 255, 255, 0.434), rgba(255, 255, 255, 0.525)), url('../Bitacoras/hoja.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    color: #44ae12e3;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Secciones del Header */
-.header-left, .header-center, .header-right {
+    }
+    
+    /* Secciones del Header */
+    .header-left, .header-center, .header-right {
     display: flex;
     align-items: center;
-}
-
-.icon {
-    height: 40px;
+    }
+    
+    .icon {
+    height: 100px;
     width: auto;
     margin-right: 10px;
-}
-
-.header-title {
+    }
+    
+    .header-title {
     margin: 0;
     font-size: 1.5rem;
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 0.1em;
-    color: #000000;
-}
-
-/* Botón del menú para el Sidebar en móvil */
-.menu-button {
+    color: #1b2c1a;
+    }
+    
+    /* Botón del menú para el Sidebar en móvil */
+    .menu-button {
     display: none; /* Oculto en pantallas grandes */
-    background-color: #007bff;
+    background-color: #40c41f;
     color: #fff;
     border: none;
     border-radius: 5px;
     padding: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
-}
-
-.menu-button:hover {
-    background-color: #0056b3;
-}
-
-.main-content {
-    margin-left: 280px;
-}
-
-.d-block.d-lg-none {
-    display: none;
-}
-
-
-/* Mostrar el botón de menú solo en dispositivos móviles */
-@media (max-width: 992px) {
-    .menu-button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 10px;
     }
-
+    
+    .menu-button:hover {
+    background-color: #2fcc1a;
+    }
+    
+    .main-content {
+    margin-left: 280px;
+    }
+    
+    .d-block.d-lg-none {
+    display: none;
+    }
+    
+    
+    /* Mostrar el botón de menú solo en dispositivos móviles */
+    @media (max-width: 992px) {
+    .menu-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    }
+    
     /* Ajuste del Header cuando se está en /settings en móvil */
     .header-settings-mobile {
-        padding-left: 60px; /* Deja espacio para el botón del Sidebar en móviles */
+    padding-left: 60px; /* Deja espacio para el botón del Sidebar en móviles */
     }
-
+    
     /* El Header en móvil no deja margen a la izquierda */
     .header-settings {
+    margin-left: 0;
+    width: 100%;
+    }
+    }
+    
+    @media (max-width: 991px) {
+    .header-settings, .main-content {
         margin-left: 0;
         width: 100%;
     }
-}
-
+    
+    .menu-button {
+        display: block;
+    }
+    
+    /* Ajustes adicionales para pantallas más pequeñas (celulares) */
+    @media (max-width: 767px) {
+        .header-title {
+            font-size: 1.2rem; /* Reducir el tamaño del título */
+        }
+    
+        .icon {
+            height: 30px; /* Reducir el tamaño de los iconos */
+        }
+    
+        /* Otros ajustes específicos para celulares, como reducir el padding, etc. */
+    }
+    }
+    
+    

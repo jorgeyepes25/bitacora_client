@@ -8,6 +8,7 @@ import { Dropdown } from "primereact/dropdown";
 import { getUsers, getRoles, addRolesToUser } from "../../services/userService"; // Importar addRolesToUser
 import useUserStore from "../../store/state/useUserStore";
 import { toast } from "sonner";
+import "./styles/StyleUsersDataTable.css";
 
 export default function UsersDataTable() {
   const [users, setUsers] = useState([]);
