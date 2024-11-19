@@ -33,7 +33,7 @@ const AvatarMenu = () => {
   const menuItems = [
     { label: user?.username || "Perfil", icon: "pi pi-user" },
     ...(isAdmin ? [{ label: "Configuración", icon: "pi pi-cog", command: () => navigate("/settings") }] : []),
-    { label: "Cerrar sesión", icon: "pi pi-sign-out", command: () => navigate("/logout") },
+    { label: "Cerrar sesión", icon: "pi pi-sign-out", command: () => navigate("/") },
   ];
 
   if (!userId || !user) return null;
