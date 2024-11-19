@@ -5,9 +5,10 @@ import { Tag } from "primereact/tag";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
-import { obtenerBitacoras } from "../../services/bitacoraService";
+import { obtenerBitacoras, deleteBitacora } from "../../services/bitacoraService";
 import useUserStore from "../../store/state/useUserStore";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import "./styles/DataView.css";
 
 const DEFAULT_IMAGE =
@@ -39,6 +40,26 @@ export default function Bitacoras() {
     }
   }, [bitacoras, token, setBitacoras]);
 
+  const handleDelete = async (id) => {
+    toast("¿Estás seguro de que deseas eliminar esta bitácora?", {
+      action: {
+        label: "Eliminar",
+        onClick: async () => {
+          try {
+            await deleteBitacora(id, token); 
+            const updatedBitacoras = bitacoras.filter((bitacora) => bitacora._id !== id);
+            setBitacoras(updatedBitacoras); 
+            setFilteredBitacoras(updatedBitacoras);
+            toast.success("Bitácora eliminada con éxito.");
+          } catch (error) {
+            console.error("Error al eliminar la bitácora:", error.message);
+            toast.error("Error al eliminar la bitácora.");
+          }
+        },
+      },
+    });
+  };
+  
   const applyFilters = () => {
     let filtered = bitacoras;
 
@@ -98,36 +119,28 @@ export default function Bitacoras() {
           />
         }
         footer={
-          <div className="flex justify-content-between align-items-center location">
-            <span>
-              Lat: {bitacora.localizacion.latitud.toFixed(2)}, Lng:{" "}
-              {bitacora.localizacion.longitud.toFixed(2)}
-            </span>
+          <div className="flex justify-content-between align-items-center">
             <Button
               icon="pi pi-info-circle"
               label="Detalles"
               className="p-button-rounded p-button-info"
               onClick={() => handleDetailsClick(bitacora._id)}
             />
+            <Button
+              icon="pi pi-trash"
+              label="Eliminar"
+              className="p-button-rounded p-button-danger"
+              onClick={() => handleDelete(bitacora._id)}
+            />
           </div>
         }
       >
-        <div className="flex justify-content-between align-items-center mb-2">
-          <Tag
-            value={bitacora.creadoPor?.username || "Desconocido"}
-            icon="pi pi-user"
-          />
-          <Tag
-            value={bitacora.condicionesClimaticas}
-            severity={getSeverity(bitacora.condicionesClimaticas)}
-          />
-        </div>
-        <p className="description">
-          {bitacora.descripcionHabitat || "Sin descripción"}
-        </p>
+        <Tag value={bitacora.condicionesClimaticas} severity={getSeverity(bitacora.condicionesClimaticas)} />
+        <p className="description">{bitacora.descripcionHabitat || "Sin descripción"}</p>
       </Card>
     </div>
   );
+  
 
   const listItem = (bitacora) => (
     <div className="col-12" key={bitacora._id}>
@@ -139,27 +152,31 @@ export default function Bitacoras() {
             style={{ width: "100px", height: "100px", objectFit: "cover" }}
             className="border-round mr-3"
           />
-          <div>
+          <div className="flex-grow-1">
             <h5 className="m-0">{bitacora.titulo}</h5>
-            <p className="text-secondary">
-              {new Date(bitacora.fechaMuestreo).toLocaleDateString()}
-            </p>
-            <Tag
-              value={bitacora.condicionesClimaticas}
-              severity={getSeverity(bitacora.condicionesClimaticas)}
-            />
+            <p className="text-secondary">{new Date(bitacora.fechaMuestreo).toLocaleDateString()}</p>
+            <Tag value={bitacora.condicionesClimaticas} severity={getSeverity(bitacora.condicionesClimaticas)} />
             <p>{bitacora.descripcionHabitat || "Sin descripción"}</p>
+          </div>
+          <div className="flex align-items-center gap-2">
             <Button
               icon="pi pi-info-circle"
               label="Detalles"
               className="p-button-text"
               onClick={() => handleDetailsClick(bitacora._id)}
             />
+            <Button
+              icon="pi pi-trash"
+              label="Eliminar"
+              className="p-button-danger p-button-text"
+              onClick={() => handleDelete(bitacora._id)}
+            />
           </div>
         </div>
       </div>
     </div>
   );
+  
 
   const itemTemplate = (bitacora, layout) => {
     if (!bitacora) return null;

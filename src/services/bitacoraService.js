@@ -80,3 +80,19 @@ export const bitacoraByID = async (id, token) => {
     );
   }
 };
+
+export const deleteBitacora = async (id, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.delete(`/api/bitacora/${id}`, config);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error al eliminar la bitácora"
+    );
+  }
+};
