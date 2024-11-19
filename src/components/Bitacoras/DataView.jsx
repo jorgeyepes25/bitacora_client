@@ -10,7 +10,8 @@ import useUserStore from "../../store/state/useUserStore";
 import { useNavigate } from "react-router-dom";
 import "./styles/DataView.css";
 
-const DEFAULT_IMAGE = "https://images.pexels.com/photos/103573/pexels-photo-103573.jpeg?cs=srgb&dl=pexels-suneo1999-24143-103573.jpg&fm=jpg";
+const DEFAULT_IMAGE =
+  "https://images.pexels.com/photos/103573/pexels-photo-103573.jpeg?cs=srgb&dl=pexels-suneo1999-24143-103573.jpg&fm=jpg";
 
 export default function Bitacoras() {
   const { token } = useUserStore();
@@ -22,31 +23,41 @@ export default function Bitacoras() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBitacoras = async () => {
-      try {
-        const data = await obtenerBitacoras(token);
-        setBitacoras(data);
-        setFilteredBitacoras(data); // Inicializamos el filtrado
-      } catch (error) {
-        console.error("Error al obtener las bitácoras:", error.message);
-      }
-    };
-
-    fetchBitacoras();
-  }, [token]);
+    if (bitacoras.length === 0) {
+      const fetchBitacoras = async () => {
+        try {
+          const data = await obtenerBitacoras(token);
+          setBitacoras(data);
+          setFilteredBitacoras(data);
+        } catch (error) {
+          console.error("Error al obtener las bitácoras:", error.message);
+        }
+      };
+      fetchBitacoras();
+    } else {
+      setFilteredBitacoras(bitacoras);
+    }
+  }, [bitacoras, token, setBitacoras]);
 
   const applyFilters = () => {
     let filtered = bitacoras;
 
     if (usernameFilter) {
       filtered = filtered.filter((bitacora) =>
-        bitacora.creadoPor?.username.toLowerCase().includes(usernameFilter.toLowerCase())
+        bitacora.creadoPor?.username
+          .toLowerCase()
+          .includes(usernameFilter.toLowerCase())
       );
     }
 
     if (dateFilter) {
       filtered = filtered.filter((bitacora) => {
-        const bitacoraDate = new Date(bitacora.fechaMuestreo).setHours(0, 0, 0, 0);
+        const bitacoraDate = new Date(bitacora.fechaMuestreo).setHours(
+          0,
+          0,
+          0,
+          0
+        );
         const selectedDate = new Date(dateFilter).setHours(0, 0, 0, 0);
         return bitacoraDate === selectedDate;
       });
@@ -89,7 +100,8 @@ export default function Bitacoras() {
         footer={
           <div className="flex justify-content-between align-items-center location">
             <span>
-              Lat: {bitacora.localizacion.latitud.toFixed(2)}, Lng: {bitacora.localizacion.longitud.toFixed(2)}
+              Lat: {bitacora.localizacion.latitud.toFixed(2)}, Lng:{" "}
+              {bitacora.localizacion.longitud.toFixed(2)}
             </span>
             <Button
               icon="pi pi-info-circle"
@@ -101,10 +113,18 @@ export default function Bitacoras() {
         }
       >
         <div className="flex justify-content-between align-items-center mb-2">
-          <Tag value={bitacora.creadoPor?.username || "Desconocido"} icon="pi pi-user" />
-          <Tag value={bitacora.condicionesClimaticas} severity={getSeverity(bitacora.condicionesClimaticas)} />
+          <Tag
+            value={bitacora.creadoPor?.username || "Desconocido"}
+            icon="pi pi-user"
+          />
+          <Tag
+            value={bitacora.condicionesClimaticas}
+            severity={getSeverity(bitacora.condicionesClimaticas)}
+          />
         </div>
-        <p className="description">{bitacora.descripcionHabitat || "Sin descripción"}</p>
+        <p className="description">
+          {bitacora.descripcionHabitat || "Sin descripción"}
+        </p>
       </Card>
     </div>
   );
@@ -121,8 +141,13 @@ export default function Bitacoras() {
           />
           <div>
             <h5 className="m-0">{bitacora.titulo}</h5>
-            <p className="text-secondary">{new Date(bitacora.fechaMuestreo).toLocaleDateString()}</p>
-            <Tag value={bitacora.condicionesClimaticas} severity={getSeverity(bitacora.condicionesClimaticas)} />
+            <p className="text-secondary">
+              {new Date(bitacora.fechaMuestreo).toLocaleDateString()}
+            </p>
+            <Tag
+              value={bitacora.condicionesClimaticas}
+              severity={getSeverity(bitacora.condicionesClimaticas)}
+            />
             <p>{bitacora.descripcionHabitat || "Sin descripción"}</p>
             <Button
               icon="pi pi-info-circle"
@@ -162,9 +187,16 @@ export default function Bitacoras() {
             placeholder="Filtrar por fecha"
           />
         </span>
-        <Button label="Aplicar filtros" icon="pi pi-filter" onClick={applyFilters} />
+        <Button
+          label="Aplicar filtros"
+          icon="pi pi-filter"
+          onClick={applyFilters}
+        />
       </div>
-      <DataViewLayoutOptions layout={layout} onChange={(e) => setLayout(e.value)} />
+      <DataViewLayoutOptions
+        layout={layout}
+        onChange={(e) => setLayout(e.value)}
+      />
     </div>
   );
 

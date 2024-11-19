@@ -1,4 +1,3 @@
-// pages/HomePage.jsx
 import { useState } from "react";
 import { Button } from 'primereact/button';
 import Header from "../components/Header";
@@ -8,20 +7,36 @@ import "./styles/HomePage.css";
 
 const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [bitacoras, setBitacoras] = useState([]);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
+
+  const handleBitacoraCreated = (newBitacora) => {
+    setBitacoras((prevBitacoras) => [newBitacora, ...prevBitacoras]);
+    window.location.reload();
+    handleCloseModal();
+  };
 
   return (
     <div className="home-page">
       <Header />
       <div className="content">
         <div className="bitacoras-header">
-          <Button label="Agregar Bitácora" icon="pi pi-plus" onClick={handleOpenModal} className="p-button-primary" />
+          <Button
+            label="Agregar Bitácora"
+            icon="pi pi-plus"
+            onClick={handleOpenModal}
+            className="p-button-primary"
+          />
         </div>
-        <Bitacoras />
+        <Bitacoras bitacoras={bitacoras} setBitacoras={setBitacoras} />
       </div>
-      <BitacoraModal visible={isModalOpen} onHide={handleCloseModal} />
+      <BitacoraModal
+        visible={isModalOpen}
+        onHide={handleCloseModal}
+        onBitacoraCreated={handleBitacoraCreated}
+      />
     </div>
   );
 };

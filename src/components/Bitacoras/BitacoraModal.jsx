@@ -19,7 +19,7 @@ const estadoPlantaOptions = [
   { label: "Preservada", value: "preservada" },
 ];
 
-const BitacoraModal = ({ visible, onHide }) => {
+const BitacoraModal = ({ visible, onHide, onBitacoraCreated }) => {
   const { token, userId } = useUserStore();
 
   const [formData, setFormData] = useState({
@@ -91,8 +91,8 @@ const BitacoraModal = ({ visible, onHide }) => {
           scientificName: "",
           commonName: "",
           family: "",
-          sampleQuantity: 1, // valor predeterminado como número
-          state: "viva", // valor predeterminado de estado
+          sampleQuantity: 1,
+          state: "viva",
           photos: [],
         },
       ],
@@ -104,7 +104,8 @@ const BitacoraModal = ({ visible, onHide }) => {
       i === index
         ? {
             ...specie,
-            [field]: field === "sampleQuantity" ? parseInt(value, 10) || 1 : value,
+            [field]:
+              field === "sampleQuantity" ? parseInt(value, 10) || 1 : value,
           }
         : specie
     );
@@ -126,31 +127,17 @@ const BitacoraModal = ({ visible, onHide }) => {
         throw new Error("La longitud debe estar entre -180 y 180.");
       }
 
-      formData.species.forEach((specie, index) => {
-        if (!specie.scientificName || !specie.commonName || !specie.family) {
-          throw new Error(
-            `Faltan datos en la especie #${
-              index + 1
-            }. Todos los campos de nombre científico, común y familia son obligatorios.`
-          );
-        }
-
-        if (
-          typeof specie.sampleQuantity !== "number" ||
-          specie.sampleQuantity <= 0
-        ) {
-          throw new Error(
-            `La cantidad de muestras en la especie #${
-              index + 1
-            } debe ser un número mayor a 0.`
-          );
-        }
-        if (!["viva", "seca", "preservada"].includes(specie.state)) {
-          throw new Error(
-            `El estado de la planta en la especie #${index + 1} es inválido.`
-          );
-        }
-      });
+      const speciesMapped =
+        formData.species.length > 0
+          ? formData.species.map((specie) => ({
+              nombreCientifico: specie.scientificName,
+              nombreComun: specie.commonName,
+              familia: specie.family,
+              cantidadMuestras: specie.sampleQuantity,
+              estadoPlanta: specie.state,
+              fotos: specie.photos,
+            }))
+          : [];
 
       const bitacoraData = {
         titulo: formData.title,
@@ -162,13 +149,18 @@ const BitacoraModal = ({ visible, onHide }) => {
         condicionesClimaticas: formData.weather,
         descripcionHabitat: formData.habitatDescription,
         observaciones: formData.additionalObservations,
-        detallesEspecies: formData.species,
+        detallesEspecies: speciesMapped,
         fotos: formData.sitePhotos,
         creadoPor: userId,
       };
 
       const response = await crearBitacora(bitacoraData, token);
       console.log("Bitácora creada:", response);
+
+      // Notificar al componente padre
+      if (onBitacoraCreated) {
+        onBitacoraCreated(response);
+      }
 
       setFormData({
         title: "",
@@ -413,6 +405,7 @@ const BitacoraModal = ({ visible, onHide }) => {
 BitacoraModal.propTypes = {
   visible: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
+  onBitacoraCreated: PropTypes.func,
 };
 
 export default BitacoraModal;
